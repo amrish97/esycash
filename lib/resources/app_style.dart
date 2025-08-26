@@ -18,6 +18,13 @@ class AppTextStyles {
     fontWeight: AppFont.regular,
   );
 
+  static TextStyle errorStyle = TextStyle(
+    color: AppColors.redColor,
+    fontSize: AppDimen.textSize14,
+    fontFamily: AppFont.font,
+    fontWeight: AppFont.regular,
+  );
+
   static TextStyle buttonTextStyle = TextStyle(
     color: AppColors.white,
     fontSize: AppDimen.textSize16,

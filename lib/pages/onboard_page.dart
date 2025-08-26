@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newcodepluse/controller/Onboard_provider.dart';
 import 'package:newcodepluse/pages/login_page.dart';
+import 'package:newcodepluse/providers/onboard_provider.dart';
 import 'package:newcodepluse/resources/app_colors.dart';
 import 'package:newcodepluse/resources/app_dimention.dart';
 import 'package:newcodepluse/resources/app_style.dart';
@@ -27,7 +27,7 @@ class OnboardPage extends StatelessWidget {
                 onPageChanged: (index) {
                   value.setLastPage(index == 2);
                 },
-                //physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ...value.pageData.asMap().entries.map((toElement) {
                     return buildPage(
@@ -126,6 +126,7 @@ class OnboardPage extends StatelessWidget {
                     count: 3,
                     effect: ExpandingDotsEffect(
                       activeDotColor: AppColors.primary,
+                      dotColor: AppColors.primaryDim,
                       dotHeight: 10,
                       dotWidth: 20,
                     ),
@@ -146,7 +147,10 @@ class OnboardPage extends StatelessWidget {
                         );
                       }
                     },
-                    child: Image.asset("assets/images/bottomIcon.png"),
+                    child: Image.asset(
+                      "assets/images/bottomIcon.png",
+                      scale: 1.6,
+                    ),
                   ),
                 ],
               ),

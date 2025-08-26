@@ -5,6 +5,7 @@ class Assets {
   static const String fontsLatoBlack = 'assets/fonts/Lato-Black.ttf';
   static const String fontsLatoRegular = 'assets/fonts/Lato-Regular.ttf';
   static const String imagesBottomIcon = 'assets/images/bottomIcon.png';
+  static const String imagesCard = 'assets/images/Card.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesOnboard = 'assets/images/onboard.png';
   static const String imagesOnboard2 = 'assets/images/onboard2.png';

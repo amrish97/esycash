@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newcodepluse/controller/login_provider.dart';
+import 'package:newcodepluse/providers/login_provider.dart';
 import 'package:newcodepluse/resources/app_colors.dart';
 import 'package:newcodepluse/resources/app_dimention.dart';
 import 'package:newcodepluse/resources/app_font.dart';
 import 'package:newcodepluse/resources/app_style.dart';
 import 'package:newcodepluse/widgets/custom_button.dart';
 import 'package:newcodepluse/widgets/custom_text.dart';
+import 'package:newcodepluse/widgets/loadingState.dart';
 import 'package:newcodepluse/widgets/otp_field.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class LoginPage extends StatelessWidget {
                   automaticallyImplyLeading: false,
                 ),
                 body: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -38,7 +39,7 @@ class LoginPage extends StatelessWidget {
                         size: 30,
                         weight: FontWeight.w600,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: value.phoneNumberController,
                         keyboardType: TextInputType.phone,
@@ -68,7 +69,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       buildCheckBox(
                         onTap: value.setRememberClick,
                         content: "Send me updates over Whatsapp",
@@ -83,7 +84,7 @@ class LoginPage extends StatelessWidget {
                         isCheck: value.isAcceptTerms,
                         visibleCheck: false,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       CustomButton(
                         text: "Get OTP",
                         onTap: () {
@@ -91,12 +92,12 @@ class LoginPage extends StatelessWidget {
                         },
                         isIconShow: true,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 30),
                     ],
                   ),
                 ),
               ),
-              loadingState(value.getIsLoading),
+              loadingState(isLoading: value.getIsLoading),
             ],
           );
         },
@@ -150,7 +151,7 @@ class LoginPage extends StatelessWidget {
         ),
         builder: (context) {
           Future.delayed(const Duration(milliseconds: 300), () {
-            if (!value.focusNodePhone.hasFocus) {
+            if (context.mounted) {
               FocusScope.of(context).requestFocus(value.focusNodePhone);
             }
           });
@@ -177,7 +178,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 PrimaryText(
                   text: "6 Digit OTP has been sent to your mobile number",
-                  size: 20,
+                  size: AppDimen.textSize20,
                   color: AppColors.hintColor,
                   weight: FontWeight.w500,
                 ),
@@ -196,7 +197,7 @@ class LoginPage extends StatelessWidget {
                       LengthLimitingTextInputFormatter(6),
                     ],
                     decoration: InputDecoration(
-                      hintText: value.phoneNumberController.text ?? "",
+                      hintText: value.phoneNumberController.text,
                       hintStyle: AppTextStyles.body,
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
                       prefixIcon: Icon(Icons.phone, color: AppColors.primary),
@@ -227,40 +228,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget loadingState(bool isLoading) {
-    if (!isLoading) return const SizedBox.shrink();
-
-    return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.5), // dimmed background
-      body: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white, // loader background
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
-          ),
-          padding: const EdgeInsets.all(24),
-          width: 220,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(
-                backgroundColor: AppColors.grey,
-                color: AppColors.primary,
-              ),
-              const SizedBox(height: 16),
-              PrimaryText(
-                text: "Please wait",
-                size: 16,
-                color: AppColors.primary,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget buildCheckBox({
     required GestureTapCallback onTap,
     required String content,
@@ -279,7 +246,7 @@ class LoginPage extends StatelessWidget {
               width: 20,
               height: 20,
               decoration: BoxDecoration(
-                color: isCheck ? AppColors.primary : Colors.white,
+                color: isCheck ? AppColors.primary : AppColors.white,
                 border: Border.all(color: AppColors.primary, width: 2),
                 borderRadius: BorderRadius.circular(4),
               ),

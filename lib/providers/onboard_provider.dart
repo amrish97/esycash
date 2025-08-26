@@ -2,23 +2,13 @@ import 'package:flutter/material.dart';
 
 class OnBoardProvider extends ChangeNotifier {
   final PageController controller = PageController();
+
   bool _isLastPage = false;
-  bool _isOnboarded = false;
 
   bool get isLastPage => _isLastPage;
-  bool get isOnboarded => _isOnboarded;
 
   void setLastPage(bool value) {
     _isLastPage = value;
-    notifyListeners();
-  }
-
-  void jumpToPage(int index) {
-    controller.jumpToPage(index);
-  }
-
-  void completeOnboarding() {
-    _isOnboarded = true;
     notifyListeners();
   }
 
